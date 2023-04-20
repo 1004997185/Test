@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu.dao.UserMapper">
+
+    <!--查询全部User-->
+    <select id="queryAllUsers" resultType="User">
+        SELECT * from stu_demo.student
+		<where>
+			<if test="userNo!=null and userNo!=''">
+			 	and userNo like '%' #{userNo} '%' 
+			</if>		
+			<if test="userName!=null and userName!=''">
+			 and userName like '%' #{userName} '%'
+			</if>		
+			<if test="userSex!=null and userSex!=''">
+			 and userSex like '%' #{userSex} '%'
+			</if>
+			<if test="gradeName!=null and gradeName!=''">
+			 and gradeName like '%' #{gradeName} '%'
+			</if>			
+		</where>
+    </select>
+    
+    <!--增加一个User-->
+    <insert id="addUser" parameterType="User">
+        insert into stu_demo.student(userNo,userPwd,userName,userSex,gradeName)
+        values (#{userNo}, "123456", #{userName}, #{userSex}, #{gradeName})
+    </insert>
+
+    <!--根据id删除一个User-->
+    <delete id="deleteUserById" parameterType="int">
+        delete from stu_demo.student where userId=#{userId}
+    </delete>
+
+    <!--更新User-->
+    <update id="updateUser" parameterType="User">
+        update stu_demo.student
+        set userNo = #{userNo},userName = #{userName},userSex = #{userSex},gradeName = #{gradeName}
+        where userId = #{userId}
+    </update>
+
+    <!--根据id查询,返回一个User-->
+    <select id="queryUserById" resultType="User">
+        select * from stu_demo.student
+		<where>
+			<if test="userNo!=null and userNo!=''">
+			 	and userNo like '%' #{userNo} '%' 
+			</if>		
+			<if test="userName!=null and userName!=''">
+			 and userName like '%' #{userName} '%'
+			</if>		
+			<if test="userSex!=null and userSex!=''">
+			 and userSex like '%' #{userSex} '%'
+			</if>
+			<if test="gradeName!=null and gradeName!=''">
+			 and gradeName like '%' #{gradeName} '%'
+			</if>			
+		</where>
+    </select>
+</mapper>
